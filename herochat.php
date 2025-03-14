@@ -52,8 +52,62 @@ add_action('admin_init', 'herochat_register_settings');
 // Settings page
 function herochat_settings_page() {
     ?>
+    <style>
+        .herochat-container {
+            display: flex;
+            gap: 40px;
+        }
+        .herochat-settings {
+            flex: 1;
+        }
+        .herochat-preview {
+            flex: 0 0 460px;
+            margin-top: 60px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #1FB7FF;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
     <div class="wrap">
         <h1>HeroChat Settings</h1>
+        <div class="herochat-container">
+            <div class="herochat-settings">
         <form method="post" action="options.php">
             <?php settings_fields('herochat_settings_group'); ?>
             <?php do_settings_sections('herochat_settings_group'); ?>
@@ -61,7 +115,10 @@ function herochat_settings_page() {
                 <tr>
                     <th scope="row">Enable AI Bot</th>
                     <td>
-                        <input type="checkbox" name="herochat_enabled" value="1" <?php checked(1, get_option('herochat_enabled'), true); ?> />
+                        <label class="switch">
+                            <input type="checkbox" name="herochat_enabled" value="1" <?php checked(1, get_option('herochat_enabled'), true); ?> />
+                            <span class="slider"></span>
+                        </label>
                     </td>
                 </tr>
                 <tr>
@@ -88,7 +145,29 @@ function herochat_settings_page() {
             </table>
             <?php submit_button(); ?>
         </form>
+        </div>
+        <div class="herochat-preview">
+            <?php if (get_option('herochat_enabled')): ?>
+            <script>
+                window.chatpilotIframeConfig = {
+                    chatbotId: "<?php echo esc_js(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>",
+                    domain: "https://app.herochat.de"
+                }
+            </script>
+            <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
+            <iframe
+                allow="microphone"
+                src="https://app.herochat.de/chatbot-iframe/<?php echo esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>"
+                id="chatbot-iframe"
+                style="border: 1px solid #e5e7eb"
+                width="460px"
+                height="600px"
+                frameborder="0"
+            ></iframe>
+            <?php endif; ?>
+        </div>
     </div>
+</div>
     <?php
 }
 
