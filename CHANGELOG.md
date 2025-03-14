@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.8] - 2025-03-14
+### Added
+- Styled HeroChat menu item with a gradient background.
+- Applied hover effect to make it stand out in the WordPress admin panel.
+
+
 ## [1.0.7] - 2025-03-14
 ### Changed
 - Updated chatbot embed script to use a new format.

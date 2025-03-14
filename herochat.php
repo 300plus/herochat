@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HeroChat
  * Description: HeroChat allows you to display a customizable AI chatbot on selected pages of your website.
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: HeroChat
  * Author URI: https://herochat.org/plugin
  * License: GPL2
@@ -26,7 +26,7 @@ $updateChecker = PucFactory::buildUpdateChecker(
 );
 $updateChecker->setBranch('main');
 
-// Add settings menu
+// Add settings menu with custom styling
 function herochat_add_menu() {
     add_menu_page(
         'HeroChat Settings',
@@ -34,7 +34,8 @@ function herochat_add_menu() {
         'manage_options',
         'herochat',
         'herochat_settings_page',
-        'dashicons-format-chat'
+        'dashicons-format-chat',
+        25
     );
 }
 add_action('admin_menu', 'herochat_add_menu');
@@ -67,21 +68,21 @@ function herochat_settings_page() {
                     <th scope="row">Chatbot ID</th>
                     <td>
                         <input type="text" name="herochat_id" value="<?php echo esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>" size="50" />
-                        <p>Enter the chatbot ID.</p>
+                        <p>Enter the chatbot ID or full tag.</p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Included Pages</th>
                     <td>
-                        <textarea name="herochat_include_pages" rows="10" cols="50"><?php echo esc_textarea(get_option('herochat_include_pages', '')); ?></textarea>
-                        <p>Specify the pages where the chatbot should appear (wildcards * allowed, e.g., /contact/*).</p>
+                        <textarea name="herochat_include_pages" rows="5" cols="50"><?php echo esc_textarea(get_option('herochat_include_pages', '')); ?></textarea>
+                        <p>Specify the pages where the chatbot should appear (wildcards * allowed).</p>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Excluded Pages</th>
                     <td>
-                        <textarea name="herochat_exclude_pages" rows="10" cols="50"><?php echo esc_textarea(get_option('herochat_exclude_pages', '')); ?></textarea>
-                        <p>Specify the pages where the chatbot should NOT appear (wildcards * allowed, e.g., /blog/*).</p>
+                        <textarea name="herochat_exclude_pages" rows="5" cols="50"><?php echo esc_textarea(get_option('herochat_exclude_pages', '')); ?></textarea>
+                        <p>Specify the pages where the chatbot should NOT appear.</p>
                     </td>
                 </tr>
             </table>
@@ -91,23 +92,65 @@ function herochat_settings_page() {
     <?php
 }
 
-// Enqueue chatbot script in the footer
+// Enqueue chatbot script in the header
 function herochat_enqueue_script() {
     if (!get_option('herochat_enabled')) {
         return;
     }
-    $chatbot_id = esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e'));
     ?>
     <script>
         window.chatpilotConfig = {
-            chatbotId: "<?php echo $chatbot_id; ?>",
+            chatbotId: "<?php echo esc_js(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>",
             domain: "https://app.herochat.de"
-        };
+        }
     </script>
     <script src="https://app.herochat.de/embed.min.js" charset="utf-8" defer></script>
     <?php
 }
-add_action('wp_footer', 'herochat_enqueue_script');
+add_action('wp_head', 'herochat_enqueue_script');
+
+// Display chatbot on allowed pages
+function herochat_display_chatbot() {
+    if (!get_option('herochat_enabled')) {
+        return;
+    }
+
+    $included_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_include_pages', ''))));
+    $excluded_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_exclude_pages', ''))));
+    $current_path = $_SERVER['REQUEST_URI'];
+
+    foreach ($excluded_pages as $exclude) {
+        if (fnmatch($exclude, $current_path)) {
+            return;
+        }
+    }
+    
+    foreach ($included_pages as $include) {
+        if (fnmatch($include, $current_path)) {
+            echo '<herochat-bubble id="' . esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')) . '"></herochat-bubble>';
+            return;
+        }
+    }
+}
+add_action('wp_footer', 'herochat_display_chatbot');
+
+// Add custom styles to HeroChat admin menu
+function herochat_admin_styles() {
+    echo '<style>
+        #toplevel_page_herochat .wp-menu-name {
+            color: #fff !important;
+            font-weight: bold;
+        }
+        #toplevel_page_herochat {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            border-radius: 5px;
+        }
+        #toplevel_page_herochat:hover {
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
+        }
+    </style>';
+}
+add_action('admin_head', 'herochat_admin_styles');
 
 // Add custom links to the plugin listing
 function herochat_plugin_links($links, $file) {

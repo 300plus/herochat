@@ -3,7 +3,7 @@ Contributors: HeroChat
 Tags: chatbot, AI, automation
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,6 +16,10 @@ HeroChat allows you to add an AI chatbot to specific pages on your WordPress sit
 3. Navigate to **Settings > HeroChat** to configure the chatbot.
 
 == Changelog ==
+
+= 1.0.8 =
+* Styled HeroChat menu item with a gradient background.
+* Applied hover effect to make it stand out in the WordPress admin panel.
 
 = 1.0.7 =
 * Updated chatbot embed script to a new format.
