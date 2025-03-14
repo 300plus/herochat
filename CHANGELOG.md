@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.15] - 2025-03-19
+### Fixed
+- Fixed toggle state persistence in settings page
+- Improved settings save feedback without page reload
+
 ## [1.0.14] - 2025-03-19
 ### Changed
 - Added fade effects for chatbot visibility toggle
