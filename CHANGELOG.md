@@ -1,5 +1,12 @@
 # Changelog
 
+
+## [1.0.10] - 2025-03-16
+### Changed
+- Updated the Enable AI Bot checkbox to a toggle slider
+- Added live preview of the chatbot in settings when enabled
+
+
 ## [1.0.9] - 2025-03-15
 ### Changed
 - Updated HeroChat menu item styling to use a solid blue background color (#1FB7FF).
