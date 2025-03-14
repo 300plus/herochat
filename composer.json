@@ -1,10 +1,11 @@
+
 {
-    "name": "kloewer/aibotstudio",
-    "description": "AIBot Studio Plugin for WordPress",
+    "name": "300plus/herochat",
+    "description": "HeroChat Plugin for WordPress",
     "authors": [
         {
-            "name": "Christian Kloewer",
-            "email": "kloewer@gmail.com"
+            "name": "300plus",
+            "email": "info@300pl.us"
         }
     ],
     "require": {
