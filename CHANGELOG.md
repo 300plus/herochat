@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.14] - 2025-03-19
+### Changed
+- Added fade effects for chatbot visibility toggle
+- Used variable for version display in settings
+- Updated chatbot visibility transition handling
+
 
 ## [1.0.13] - 2025-03-18
 ### Added
