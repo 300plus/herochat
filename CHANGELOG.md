@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.9] - 2025-03-15
+### Changed
+- Updated HeroChat menu item styling to use a solid blue background color (#1FB7FF).
+- Removed gradient and border radius from menu item styling.
+
 ## [1.0.8] - 2025-03-14
 ### Added
 - Styled HeroChat menu item with a gradient background.
