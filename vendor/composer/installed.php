@@ -1,3 +1,4 @@
+
 <?php return array (
   'root' => 
   array (
@@ -7,11 +8,11 @@
     array (
     ),
     'reference' => NULL,
-    'name' => 'kloewer/aibotstudio',
+    'name' => '300plus/herochat',
   ),
   'versions' => 
   array (
-    'kloewer/aibotstudio' => 
+    '300plus/herochat' => 
     array (
       'pretty_version' => '1.0.0+no-version-set',
       'version' => '1.0.0.0',
