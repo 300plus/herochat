@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [1.0.13] - 2025-03-18
+### Added
+- Added fade effect when toggling chatbot visibility
+### Changed
+- Used variable for version number display
+- Improved chatbot visibility transitions
+
+
+
 ## [1.0.12] - 2025-03-17
 ### Fixed
 - Improved iframe visibility handling when chatbot is disabled
