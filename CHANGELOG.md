@@ -1,6 +1,11 @@
 # Changelog
 
 
+## [1.0.11] - 2025-03-16
+### Fixed
+- Fixed chatbot preview not updating immediately after saving settings
+- Changed "Enable AI Bot" label to "Enable HeroChat"
+
 ## [1.0.10] - 2025-03-16
 ### Changed
 - Updated the Enable AI Bot checkbox to a toggle slider

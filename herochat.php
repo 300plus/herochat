@@ -113,7 +113,7 @@ function herochat_settings_page() {
             <?php do_settings_sections('herochat_settings_group'); ?>
             <table class="form-table">
                 <tr>
-                    <th scope="row">Enable AI Bot</th>
+                    <th scope="row">Enable HeroChat</th>
                     <td>
                         <label class="switch">
                             <input type="checkbox" name="herochat_enabled" value="1" <?php checked(1, get_option('herochat_enabled'), true); ?> />
@@ -145,6 +145,15 @@ function herochat_settings_page() {
             </table>
             <?php submit_button(); ?>
         </form>
+        <script>
+            jQuery(document).ready(function($) {
+                $('form').on('submit', function() {
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500);
+                });
+            });
+        </script>
         </div>
         <div class="herochat-preview">
             <?php if (get_option('herochat_enabled')): ?>
