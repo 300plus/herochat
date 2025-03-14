@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [1.0.12] - 2025-03-17
+### Fixed
+- Improved iframe visibility handling when chatbot is disabled
+- Enhanced UI responsiveness to toggle state changes
+
+
+
 ## [1.0.11] - 2025-03-16
 ### Fixed
 - Fixed chatbot preview not updating immediately after saving settings

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HeroChat
  * Description: HeroChat allows you to display a customizable AI chatbot on selected pages of your website.
- * Version: 1.0.11
+ * Version: 1.0.12
  * Author: HeroChat
  * Author URI: https://herochat.org/plugin
  * License: GPL2
@@ -160,24 +160,24 @@ function herochat_settings_page() {
         </script>
         </div>
         <div class="herochat-preview">
-            <?php if (get_option('herochat_enabled')): ?>
-            <script>
-                window.chatpilotIframeConfig = {
-                    chatbotId: "<?php echo esc_js(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>",
-                    domain: "https://app.herochat.de"
-                }
-            </script>
-            <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
-            <iframe
-                allow="microphone"
-                src="https://app.herochat.de/chatbot-iframe/<?php echo esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>"
-                id="chatbot-iframe"
-                style="border: 1px solid #e5e7eb; border radius: 14px;"
-                width="460px"
-                height="600px"
-                frameborder="0"
-            ></iframe>
-            <?php endif; ?>
+            <div id="iframe-container" style="display: <?php echo get_option('herochat_enabled') ? 'block' : 'none'; ?>">
+                <script>
+                    window.chatpilotIframeConfig = {
+                        chatbotId: "<?php echo esc_js(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>",
+                        domain: "https://app.herochat.de"
+                    }
+                </script>
+                <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
+                <iframe
+                    allow="microphone"
+                    src="https://app.herochat.de/chatbot-iframe/<?php echo esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>"
+                    id="chatbot-iframe"
+                    style="border: 1px solid #e5e7eb; border radius: 14px;"
+                    width="460px"
+                    height="600px"
+                    frameborder="0"
+                ></iframe>
+            </div>
         </div>
     </div>
 </div>
