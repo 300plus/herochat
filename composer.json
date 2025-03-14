@@ -1,0 +1,13 @@
+{
+    "name": "kloewer/aibotstudio",
+    "description": "AIBot Studio Plugin for WordPress",
+    "authors": [
+        {
+            "name": "Christian Kloewer",
+            "email": "kloewer@gmail.com"
+        }
+    ],
+    "require": {
+        "yahnis-elsts/plugin-update-checker": "^5.5"
+    }
+}
