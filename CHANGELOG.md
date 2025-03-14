@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.7] - 2025-03-14
+### Changed
+- Updated chatbot embed script to use a new format.
+- The chatbot ID is now the only required setting for embedding.
+
+### Fixed
+- Resolved issues where the chatbot script was not loading correctly.
+- Improved the script initialization process for better performance.
+- Fixed an issue with excluded pages not properly preventing chatbot display.
+
+---
+
 ## [1.0.6] - 2025-02-08
 ### Added
 - Updated vendor dependencies to ensure compatibility with the latest WordPress version.
