@@ -28,6 +28,12 @@ $updateChecker = PucFactory::buildUpdateChecker(
 );
 $updateChecker->setBranch('main');
 
+// Add GitHub authentication to avoid API rate limits
+$github_token = getenv('GITHUB_API_TOKEN'); // Fetch token from environment
+if ($github_token) {
+    $updateChecker->setAuthentication($github_token);
+}
+
 // Add settings menu with custom styling
 function herochat_add_menu() {
     add_menu_page(
@@ -113,7 +119,7 @@ function herochat_settings_page() {
         <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
             Enhance your website with <a href="https://www.herochat.de" target="_blank">HeroChat</a>, the ultimate AI chatbot solution for customer support, lead generation, and sales conversion. Seamlessly integrate an intelligent chatbot that engages visitors, answers questions, and guides users toward your products or services—all in real time.
         </p>
-        
+
         <h2 class="nav-tab-wrapper">
             <a href="#chatbot" class="nav-tab nav-tab-active" data-tab="chatbot">Chatbot</a>
             <a href="#api-key" class="nav-tab" data-tab="api-key">API Key</a>
@@ -137,8 +143,8 @@ function herochat_settings_page() {
                 <tr>
                     <th scope="row">Chatbot ID</th>
                     <td>
-                        <input type="text" name="herochat_id" id="herochat_id" value="<?php echo esc_attr(get_option('herochat_id', '')); ?>" size="50" required />
-                        <p>Enter the chatbot ID (required).</p>
+                        <input type="text" name="herochat_id" id="herochat_id" value="<?php echo esc_attr(get_option('herochat_id', '')); ?>" size="50" />
+                        <p>Enter the chatbot ID.</p>
                     </td>
                 </tr>
                 <tr>
@@ -159,7 +165,7 @@ function herochat_settings_page() {
             <?php submit_button(); ?>
         </form>
         </div>
-        <div class="herochat-preview">
+        <div class="herochat-preview" style="position: fixed; top: 100px; right: 20px;">
             <div id="iframe-container" style="display: <?php echo get_option('herochat_enabled') ? 'block' : 'none'; ?>">
                 <script>
                     window.chatpilotIframeConfig = {
@@ -202,11 +208,11 @@ function herochat_settings_page() {
                 $('.nav-tab').on('click', function(e) {
                     e.preventDefault();
                     var tabId = $(this).data('tab');
-                    
+
                     // Update active tab
                     $('.nav-tab').removeClass('nav-tab-active');
                     $(this).addClass('nav-tab-active');
-                    
+
                     // Show selected tab content
                     $('.tab-content').hide();
                     $('#' + tabId + '-tab').show();
@@ -222,10 +228,12 @@ function herochat_settings_page() {
 
                 function validateForm() {
                     var chatbotId = $('#herochat_id').val().trim();
-                    $('#submit').prop('disabled', !chatbotId);
+                    var isEnabled = $('input[name="herochat_enabled"]').is(':checked');
+                    $('#submit').prop('disabled', isEnabled && !chatbotId);
                 }
 
                 $('#herochat_id').on('input', validateForm);
+                $('input[name="herochat_enabled"]').on('change', validateForm);
                 validateForm();
 
                 $('form').on('submit', function(e) {
@@ -241,27 +249,6 @@ function herochat_settings_page() {
                 });
             });
         </script>
-        </div>
-        <div class="herochat-preview">
-            <div id="iframe-container" style="display: <?php echo get_option('herochat_enabled') ? 'block' : 'none'; ?>">
-                <script>
-                    window.chatpilotIframeConfig = {
-                        chatbotId: "<?php echo esc_js(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>",
-                        domain: "https://app.herochat.de"
-                    }
-                </script>
-                <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
-                <iframe
-                    allow="microphone"
-                    src="https://app.herochat.de/chatbot-iframe/61be3e7b6818446c8486b538147dce8e"
-                    id="chatbot-iframe"
-                    style="border: 1px solid #CCC; border-radius: 10px;"
-                    width="460px"
-                    height="600px"
-                    frameborder="0"
-                ></iframe>
-            </div>
-        </div>
     </div>
 </div>
     <?php
