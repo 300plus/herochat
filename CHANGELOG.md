@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.22] - 2025-03-19
+### Changed
+- Synchronized version numbers across plugin files
+- Improved plugin header version handling
+
 ## [1.0.21] - 2025-03-19
 ### Changed
 - Updated plugin version constant implementation
