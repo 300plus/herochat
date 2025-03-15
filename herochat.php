@@ -219,17 +219,16 @@ function herochat_display_chatbot() {
     }
 
     $included_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_include_pages', ''))));
-    $excluded_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_exclude_pages', ''))));
     $current_path = $_SERVER['REQUEST_URI'];
 
-    foreach ($excluded_pages as $exclude) {
-        if (fnmatch($exclude, $current_path)) {
-            return;
-        }
+    // If no included pages specified, do not show chatbot
+    if (empty($included_pages)) {
+        return;
     }
 
+    // Check if current path matches any included pattern
     foreach ($included_pages as $include) {
-        if (fnmatch($include, $current_path)) {
+        if (fnmatch($include, $current_path) || fnmatch($include . '/*', $current_path)) {
             echo '<herochat-bubble id="' . esc_attr(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e') . '"></herochat-bubble>';
             return;
         }
