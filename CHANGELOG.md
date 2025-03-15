@@ -1,4 +1,12 @@
 
+## [1.1.0] - 2025-03-19
+### Added
+- Settings tabs for better organization
+- API Key management functionality
+- Improved settings page layout and usability
+
+
+
 ## [1.0.28] - 2025-03-19
 ### Changed
 - Made chatbot ID field mandatory
