@@ -1,3 +1,7 @@
+## [1.0.48] - 2025-03-19
+### Changed
+- Allow saving form with empty chatbot ID
+
 ## [1.0.47] - 2025-03-19
 ### Changed
 - Allow empty chatbot ID when toggle is off
