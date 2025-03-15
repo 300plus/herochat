@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-define('HEROCHAT_VERSION', '1.0.19');
+define('HEROCHAT_VERSION', '1.0.20');
 
 // Include Composer autoloader for Plugin Update Checker
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
