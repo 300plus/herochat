@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HeroChat
  * Description: HeroChat allows you to display a customizable AI chatbot on selected pages of your website.
- * Version: 1.0.27
+ * Version: 1.0.28
  * Author: HeroChat
  * Author URI: https://herochat.org/plugin
  * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-define('HEROCHAT_VERSION', '1.0.27');
+define('HEROCHAT_VERSION', '1.0.28');
 
 // Include Composer autoloader for Plugin Update Checker
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -130,8 +130,8 @@ function herochat_settings_page() {
                 <tr>
                     <th scope="row">Chatbot ID</th>
                     <td>
-                        <input type="text" name="herochat_id" value="<?php echo esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>" size="50" />
-                        <p>Enter the chatbot ID or full tag.</p>
+                        <input type="text" name="herochat_id" id="herochat_id" value="<?php echo esc_attr(get_option('herochat_id', '')); ?>" size="50" required />
+                        <p>Enter the chatbot ID (required).</p>
                     </td>
                 </tr>
                 <tr>
@@ -161,8 +161,20 @@ function herochat_settings_page() {
                     }
                 });
 
+                function validateForm() {
+                    var chatbotId = $('#herochat_id').val().trim();
+                    $('#submit').prop('disabled', !chatbotId);
+                }
+
+                $('#herochat_id').on('input', validateForm);
+                validateForm();
+
                 $('form').on('submit', function(e) {
                     e.preventDefault();
+                    var chatbotId = $('#herochat_id').val().trim();
+                    if (!chatbotId) {
+                        return false;
+                    }
                     var formData = $(this).serialize();
                     $.post('options.php', formData, function(response) {
                         location.reload();

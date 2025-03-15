@@ -1,4 +1,9 @@
 
+## [1.0.28] - 2025-03-19
+### Changed
+- Made chatbot ID field mandatory
+- Added form validation to prevent saving without chatbot ID
+
 ## [1.0.27] - 2025-03-19
 ### Changed
 - Only show chatbot on pages when custom ID is provided
