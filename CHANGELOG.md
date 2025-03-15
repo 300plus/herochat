@@ -1,3 +1,7 @@
+## [1.0.46] - 2025-03-19
+### Changed
+- Settings and API Key tabs are now only visible when Chatbot ID is configured
+
 ## [1.0.45] - 2025-03-19
 ### Changed
 - Settings tab is now only visible when API key is configured
