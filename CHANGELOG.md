@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.18] - 2025-03-19
+### Changed
+- Added page reload after saving settings for better state management
+
 ## [1.0.17] - 2025-03-19
 ### Changed
 - Added default fallback chatbot ID when none is provided
