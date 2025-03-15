@@ -1,5 +1,12 @@
 # Changelog
 
+
+## [1.0.19] - 2025-03-19
+### Fixed
+- Fixed chatbot display logic to properly handle wildcard patterns
+- Improved page matching with explicit path handling
+
+
 ## [1.0.18] - 2025-03-19
 ### Changed
 - Added page reload after saving settings for better state management
