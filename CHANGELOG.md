@@ -1,4 +1,8 @@
 
+## [1.0.37] - 2025-03-19
+### Changed
+- Version number incremented for release
+
 ## [1.0.35] - 2025-03-19
 ### Fixed
 - Fixed non-working settings tabs in admin interface
