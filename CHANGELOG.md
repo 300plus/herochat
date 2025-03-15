@@ -1,4 +1,10 @@
 
+## [1.0.33] - 2025-03-19
+### Changed
+- Version number incremented for release
+
+
+
 ## [1.0.32] - 2025-03-19
 ### Fixed
 - Fixed empty Settings and API Key tabs in admin interface
