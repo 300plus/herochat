@@ -1,3 +1,8 @@
+## [1.0.47] - 2025-03-19
+### Changed
+- Allow empty chatbot ID when toggle is off
+- Clear chatbot ID field when toggle is disabled
+
 ## [1.0.46] - 2025-03-19
 ### Changed
 - Settings and API Key tabs are now only visible when Chatbot ID is configured
