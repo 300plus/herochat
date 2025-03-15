@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HeroChat
  * Description: HeroChat allows you to display a customizable AI chatbot on selected pages of your website.
- * Version: 1.0.39
+ * Version: 1.0.28
  * Author: HeroChat
  * Author URI: https://herochat.org/plugin
  * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-define('HEROCHAT_VERSION', '1.0.39');
+define('HEROCHAT_VERSION', '1.0.28');
 
 // Include Composer autoloader for Plugin Update Checker
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -113,14 +113,13 @@ function herochat_settings_page() {
         <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
             Enhance your website with <a href="https://www.herochat.de" target="_blank">HeroChat</a>, the ultimate AI chatbot solution for customer support, lead generation, and sales conversion. Seamlessly integrate an intelligent chatbot that engages visitors, answers questions, and guides users toward your products or services—all in real time.
         </p>
-
+        
         <h2 class="nav-tab-wrapper">
             <a href="#chatbot" class="nav-tab nav-tab-active" data-tab="chatbot">Chatbot</a>
             <a href="#api-key" class="nav-tab" data-tab="api-key">API Key</a>
         </h2>
 
-        <div id="chatbot-tab" class="tab-content" style="display: block;">
-        <div class="herochat-container">
+        <div class="herochat-container tab-content" id="chatbot-tab" style="display: block;">
             <div class="herochat-settings">
         <form method="post" action="options.php">
             <?php settings_fields('herochat_settings_group'); ?>
@@ -203,11 +202,11 @@ function herochat_settings_page() {
                 $('.nav-tab').on('click', function(e) {
                     e.preventDefault();
                     var tabId = $(this).data('tab');
-
+                    
                     // Update active tab
                     $('.nav-tab').removeClass('nav-tab-active');
                     $(this).addClass('nav-tab-active');
-
+                    
                     // Show selected tab content
                     $('.tab-content').hide();
                     $('#' + tabId + '-tab').show();
@@ -243,6 +242,25 @@ function herochat_settings_page() {
             });
         </script>
         </div>
+        <div class="herochat-preview">
+            <div id="iframe-container" style="display: <?php echo get_option('herochat_enabled') ? 'block' : 'none'; ?>">
+                <script>
+                    window.chatpilotIframeConfig = {
+                        chatbotId: "<?php echo esc_js(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>",
+                        domain: "https://app.herochat.de"
+                    }
+                </script>
+                <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
+                <iframe
+                    allow="microphone"
+                    src="https://app.herochat.de/chatbot-iframe/61be3e7b6818446c8486b538147dce8e"
+                    id="chatbot-iframe"
+                    style="border: 1px solid #CCC; border-radius: 10px;"
+                    width="460px"
+                    height="600px"
+                    frameborder="0"
+                ></iframe>
+            </div>
         </div>
     </div>
 </div>
