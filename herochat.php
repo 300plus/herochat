@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HeroChat
  * Description: HeroChat allows you to display a customizable AI chatbot on selected pages of your website.
- * Version: 1.0.29
+ * Version: 1.0.30
  * Author: HeroChat
  * Author URI: https://herochat.org/plugin
  * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-define('HEROCHAT_VERSION', '1.0.29');
+define('HEROCHAT_VERSION', '1.0.30');
 
 // Include Composer autoloader for Plugin Update Checker
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -119,7 +119,8 @@ function herochat_settings_page() {
             <a href="#api-key" class="nav-tab" data-tab="api-key">API Key</a>
         </h2>
 
-        <div class="herochat-container tab-content" id="chatbot-tab" style="display: block;">
+        <div id="chatbot-tab" class="tab-content" style="display: block;">
+        <div class="herochat-container">
             <div class="herochat-settings">
         <form method="post" action="options.php">
             <?php settings_fields('herochat_settings_group'); ?>
@@ -242,25 +243,6 @@ function herochat_settings_page() {
             });
         </script>
         </div>
-        <div class="herochat-preview">
-            <div id="iframe-container" style="display: <?php echo get_option('herochat_enabled') ? 'block' : 'none'; ?>">
-                <script>
-                    window.chatpilotIframeConfig = {
-                        chatbotId: "<?php echo esc_js(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>",
-                        domain: "https://app.herochat.de"
-                    }
-                </script>
-                <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
-                <iframe
-                    allow="microphone"
-                    src="https://app.herochat.de/chatbot-iframe/61be3e7b6818446c8486b538147dce8e"
-                    id="chatbot-iframe"
-                    style="border: 1px solid #CCC; border-radius: 10px;"
-                    width="460px"
-                    height="600px"
-                    frameborder="0"
-                ></iframe>
-            </div>
         </div>
     </div>
 </div>

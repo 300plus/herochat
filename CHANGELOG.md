@@ -1,4 +1,10 @@
 
+## [1.0.30] - 2025-03-19
+### Fixed
+- Fixed iframe display issues in settings tabs
+- Removed duplicate iframe container
+- Improved chatbot preview visibility handling
+
 ## [1.1.0] - 2025-03-19
 ### Added
 - Settings tabs for better organization
