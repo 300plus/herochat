@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.17] - 2025-03-19
+### Changed
+- Added default fallback chatbot ID when none is provided
+
 ## [1.0.16] - 2025-03-19
 ### Fixed
 - Fixed incorrect version display in settings screen

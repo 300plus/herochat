@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HeroChat
  * Description: HeroChat allows you to display a customizable AI chatbot on selected pages of your website.
- * Version: 1.0.16
+ * Version: 1.0.17
  * Author: HeroChat
  * Author URI: https://herochat.org/plugin
  * License: GPL2
@@ -105,7 +105,7 @@ function herochat_settings_page() {
         }
     </style>
     <div class="wrap">
-        <?php $plugin_version = '1.0.16'; ?>
+        <?php $plugin_version = '1.0.17'; ?>
         <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Version <?php echo $plugin_version; ?></div>
         <h1>HeroChat</h1>
         <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
@@ -159,7 +159,7 @@ function herochat_settings_page() {
                         $('#iframe-container').fadeOut();
                     }
                 });
-                
+
                 $('form').on('submit', function(e) {
                     e.preventDefault();
                     var formData = $(this).serialize();
@@ -179,14 +179,14 @@ function herochat_settings_page() {
             <div id="iframe-container" style="display: <?php echo get_option('herochat_enabled') ? 'block' : 'none'; ?>">
                 <script>
                     window.chatpilotIframeConfig = {
-                        chatbotId: "<?php echo esc_js(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>",
+                        chatbotId: "<?php echo esc_js(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>",
                         domain: "https://app.herochat.de"
                     }
                 </script>
                 <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
                 <iframe
                     allow="microphone"
-                    src="https://app.herochat.de/chatbot-iframe/<?php echo esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>"
+                    src="https://app.herochat.de/chatbot-iframe/<?php echo esc_attr(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>"
                     id="chatbot-iframe"
                     style="border: 1px solid #e5e7eb; border radius: 14px;"
                     width="460px"
@@ -208,7 +208,7 @@ function herochat_enqueue_script() {
     ?>
     <script>
         window.chatpilotConfig = {
-            chatbotId: "<?php echo esc_js(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')); ?>",
+            chatbotId: "<?php echo esc_js(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>",
             domain: "https://app.herochat.de"
         }
     </script>
@@ -232,10 +232,10 @@ function herochat_display_chatbot() {
             return;
         }
     }
-    
+
     foreach ($included_pages as $include) {
         if (fnmatch($include, $current_path)) {
-            echo '<herochat-bubble id="' . esc_attr(get_option('herochat_id', '61be3e7b6818446c8486b538147dce8e')) . '"></herochat-bubble>';
+            echo '<herochat-bubble id="' . esc_attr(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e') . '"></herochat-bubble>';
             return;
         }
     }
