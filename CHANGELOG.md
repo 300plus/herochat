@@ -1,4 +1,11 @@
 
+## [1.0.34] - 2025-03-19
+### Changed
+- Version number incremented for release
+
+
+
+
 ## [1.0.33] - 2025-03-19
 ### Changed
 - Version number incremented for release

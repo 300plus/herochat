@@ -3,7 +3,7 @@ Contributors: HeroChat
 Tags: chatbot, AI, automation
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.0.33
+Stable tag: 1.0.34
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
