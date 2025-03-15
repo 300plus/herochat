@@ -184,7 +184,7 @@ function herochat_settings_page() {
                     allow="microphone"
                     src="https://app.herochat.de/chatbot-iframe/<?php echo esc_attr(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>"
                     id="chatbot-iframe"
-                    style="border: 1px solid #e5e7eb; border radius: 14px;"
+                    style="border: 1px solid #CCC; border-radius: 10px;"
                     width="460px"
                     height="600px"
                     frameborder="0"
