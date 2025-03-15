@@ -1,4 +1,12 @@
 
+## [1.0.27] - 2025-03-19
+### Changed
+- Only show chatbot on pages when custom ID is provided
+- Use default bot ID (61be3e7b6818446c8486b538147dce8e) only for settings preview
+- Automatically disable chatbot when no ID is provided
+
+
+
 ## [1.0.26] - 2025-03-19
 ### Changed
 - Always use default bot ID (61be3e7b6818446c8486b538147dce8e) unless custom ID is provided

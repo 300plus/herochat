@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HeroChat
  * Description: HeroChat allows you to display a customizable AI chatbot on selected pages of your website.
- * Version: 1.0.26
+ * Version: 1.0.27
  * Author: HeroChat
  * Author URI: https://herochat.org/plugin
  * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-define('HEROCHAT_VERSION', '1.0.26');
+define('HEROCHAT_VERSION', '1.0.27');
 
 // Include Composer autoloader for Plugin Update Checker
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -182,7 +182,7 @@ function herochat_settings_page() {
                 <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
                 <iframe
                     allow="microphone"
-                    src="https://app.herochat.de/chatbot-iframe/<?php echo esc_attr(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>"
+                    src="https://app.herochat.de/chatbot-iframe/61be3e7b6818446c8486b538147dce8e"
                     id="chatbot-iframe"
                     style="border: 1px solid #CCC; border-radius: 10px;"
                     width="460px"
@@ -228,8 +228,14 @@ function herochat_enqueue_script() {
                     domain: "https://app.herochat.de"
                 }
             </script>
-            <script src="https://app.herochat.de/embed.min.js" charset="utf-8" defer></script>
             <?php
+            if (trim(get_option('herochat_id'))) {
+                ?>
+                <script src="https://app.herochat.de/embed.min.js" charset="utf-8" defer></script>
+                <?php
+            } else {
+                update_option('herochat_enabled', false);
+            }
             return;
         }
     }
