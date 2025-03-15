@@ -2,7 +2,7 @@
 /**
  * Plugin Name: HeroChat
  * Description: HeroChat allows you to display a customizable AI chatbot on selected pages of your website.
- * Version: 1.0.23
+ * Version: 1.0.24
  * Author: HeroChat
  * Author URI: https://herochat.org/plugin
  * License: GPL2
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-define('HEROCHAT_VERSION', '1.0.23');
+define('HEROCHAT_VERSION', '1.0.24');
 
 // Include Composer autoloader for Plugin Update Checker
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -203,11 +203,19 @@ function herochat_enqueue_script() {
     }
 
     $included_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_include_pages', ''))));
+    $excluded_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_exclude_pages', ''))));
     $current_path = $_SERVER['REQUEST_URI'];
 
     // If no included pages specified, do not show chatbot
     if (empty($included_pages)) {
         return;
+    }
+
+    // Check if current path matches any excluded pattern
+    foreach ($excluded_pages as $exclude) {
+        if (fnmatch($exclude, $current_path) || fnmatch($exclude . '/*', $current_path)) {
+            return;
+        }
     }
 
     // Check if current path matches any included pattern

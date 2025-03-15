@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.24] - 2025-03-19
+### Fixed
+- Added excluded pages check before loading chatbot script
+- Improved page visibility logic to respect both included and excluded paths
+
 
 ## [1.0.23] - 2025-03-19
 ### Changed
