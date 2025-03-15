@@ -1,5 +1,12 @@
 # Changelog
 
+
+## [1.0.23] - 2025-03-19
+### Changed
+- Improved chatbot script loading logic for included pages
+- Enhanced page path matching functionality
+
+
 ## [1.0.22] - 2025-03-19
 ### Changed
 - Synchronized version numbers across plugin files
