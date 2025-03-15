@@ -257,11 +257,22 @@ function herochat_settings_page() {
                 var activeTab = sessionStorage.getItem('activeTab') || 'chatbot';
                 
                 function switchTab(tabId) {
+                    // Remove active class from all tabs and add to current
                     $('.nav-tab').removeClass('nav-tab-active');
                     $('[data-tab="' + tabId + '"]').addClass('nav-tab-active');
+                    
+                    // Hide all tab content
                     $('.tab-content').hide();
+                    
+                    // Show selected tab content
                     $('#' + tabId + '-tab').show();
+                    
+                    // Store active tab
                     sessionStorage.setItem('activeTab', tabId);
+                    
+                    // Debug
+                    console.log('Switching to tab:', tabId);
+                    console.log('Tab content element:', $('#' + tabId + '-tab').length);
                 }
 
                 // Initialize tabs
@@ -270,7 +281,12 @@ function herochat_settings_page() {
                 // Tab switching functionality
                 $('.nav-tab').on('click', function(e) {
                     e.preventDefault();
-                    switchTab($(this).data('tab'));
+                    var tabId = $(this).data('tab');
+                    if (tabId) {
+                        switchTab(tabId);
+                    } else {
+                        console.error('No tab ID found for clicked element');
+                    }
                 });
 
                 // Toggle iframe visibility
