@@ -59,6 +59,10 @@ add_action('admin_init', 'herochat_register_settings');
 
 // Settings page
 function herochat_settings_page() {
+    // Debug output
+    error_log('HeroChat Settings Page Loaded');
+    error_log('API Key: ' . (get_option('herochat_api_key') ? 'Set' : 'Not Set'));
+    error_log('Display Settings: ' . print_r(get_option('herochat_display_settings_group'), true));
     ?>
     <style>
         .herochat-container {
@@ -249,28 +253,32 @@ function herochat_settings_page() {
     </div>
         <script>
             jQuery(document).ready(function($) {
+                // Store the active tab in session storage
+                var activeTab = sessionStorage.getItem('activeTab') || 'chatbot';
+                
+                function switchTab(tabId) {
+                    $('.nav-tab').removeClass('nav-tab-active');
+                    $('[data-tab="' + tabId + '"]').addClass('nav-tab-active');
+                    $('.tab-content').hide();
+                    $('#' + tabId + '-tab').show();
+                    sessionStorage.setItem('activeTab', tabId);
+                }
+
+                // Initialize tabs
+                switchTab(activeTab);
+
                 // Tab switching functionality
                 $('.nav-tab').on('click', function(e) {
                     e.preventDefault();
-                    var tabId = $(this).data('tab');
-                    
-                    // Update active tab
-                    $('.nav-tab').removeClass('nav-tab-active');
-                    $(this).addClass('nav-tab-active');
-                    
-                    // Show selected tab content
-                    $('.tab-content').hide();
-                    $('#' + tabId + '-tab').show();
+                    switchTab($(this).data('tab'));
                 });
 
+                // Toggle iframe visibility
                 $('input[name="herochat_enabled"]').on('change', function() {
-                    if ($(this).is(':checked')) {
-                        $('#iframe-container').fadeIn();
-                    } else {
-                        $('#iframe-container').fadeOut();
-                    }
+                    $('#iframe-container').toggle($(this).is(':checked'));
                 });
 
+                // Form validation
                 function validateForm() {
                     var chatbotId = $('#herochat_id').val().trim();
                     $('#submit').prop('disabled', !chatbotId);
@@ -279,16 +287,26 @@ function herochat_settings_page() {
                 $('#herochat_id').on('input', validateForm);
                 validateForm();
 
-                $('form').on('submit', function(e) {
+                // Handle form submissions
+                $('#chatbot-form, #settings-form, #api-key-form').on('submit', function(e) {
                     e.preventDefault();
-                    var chatbotId = $('#herochat_id').val().trim();
-                    if (!chatbotId) {
-                        return false;
-                    }
-                    var formData = $(this).serialize();
-                    $.post('options.php', formData, function(response) {
-                        location.reload();
-                    });
+                    var $form = $(this);
+                    var formData = $form.serialize();
+                    
+                    $.post('options.php', formData)
+                        .done(function(response) {
+                            // Show success message
+                            var $message = $('<div class="notice notice-success"><p>Settings saved successfully!</p></div>')
+                                .insertBefore($form)
+                                .fadeOut(3000);
+                        })
+                        .fail(function(xhr, status, error) {
+                            console.error('Form submission error:', error);
+                            // Show error message
+                            var $message = $('<div class="notice notice-error"><p>Error saving settings: ' + error + '</p></div>')
+                                .insertBefore($form)
+                                .fadeOut(3000);
+                        });
                 });
             });
         </script>
