@@ -49,6 +49,11 @@ function herochat_register_settings() {
     register_setting('herochat_settings_group', 'herochat_include_pages');
     register_setting('herochat_settings_group', 'herochat_exclude_pages');
     register_setting('herochat_api_settings_group', 'herochat_api_key');
+    register_setting('herochat_display_settings_group', 'herochat_display_name');
+    register_setting('herochat_display_settings_group', 'herochat_welcome_message');
+    register_setting('herochat_display_settings_group', 'herochat_input_placeholder');
+    register_setting('herochat_display_settings_group', 'herochat_knowledge_url');
+    register_setting('herochat_display_settings_group', 'herochat_knowledge_text');
 }
 add_action('admin_init', 'herochat_register_settings');
 
@@ -116,6 +121,7 @@ function herochat_settings_page() {
         
         <h2 class="nav-tab-wrapper">
             <a href="#chatbot" class="nav-tab nav-tab-active" data-tab="chatbot">Chatbot</a>
+            <a href="#settings" class="nav-tab" data-tab="settings">Settings</a>
             <a href="#api-key" class="nav-tab" data-tab="api-key">API Key</a>
         </h2>
 
@@ -180,6 +186,50 @@ function herochat_settings_page() {
                 ></iframe>
             </div>
         </div>
+    </div>
+
+    <div class="tab-content" id="settings-tab" style="display: none;">
+        <form method="post" action="options.php" id="settings-form">
+            <?php settings_fields('herochat_display_settings_group'); ?>
+            <table class="form-table">
+                <tr>
+                    <th scope="row">Chatbot Title</th>
+                    <td>
+                        <input type="text" name="herochat_display_name" value="<?php echo esc_attr(get_option('herochat_display_name')); ?>" class="regular-text" />
+                        <p class="description">Enter the display name for your chatbot.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Welcome Message</th>
+                    <td>
+                        <input type="text" name="herochat_welcome_message" value="<?php echo esc_attr(get_option('herochat_welcome_message', '👋 Welcome! Please feel free to ask me anything!')); ?>" class="regular-text" />
+                        <p class="description">Enter the welcome message for your chatbot.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Input Placeholder</th>
+                    <td>
+                        <input type="text" name="herochat_input_placeholder" value="<?php echo esc_attr(get_option('herochat_input_placeholder')); ?>" class="regular-text" />
+                        <p class="description">Enter the placeholder text for the input field.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Website URL</th>
+                    <td>
+                        <input type="url" name="herochat_knowledge_url" value="<?php echo esc_url(get_option('herochat_knowledge_url')); ?>" class="regular-text" />
+                        <p class="description">Enter the website URL for the knowledge base.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Knowledge Base</th>
+                    <td>
+                        <textarea name="herochat_knowledge_text" rows="20" style="width: 100%; resize: vertical;"><?php echo esc_textarea(get_option('herochat_knowledge_text')); ?></textarea>
+                        <p class="description">Enter the knowledge base text.</p>
+                    </td>
+                </tr>
+            </table>
+            <?php submit_button('Save Settings'); ?>
+        </form>
     </div>
 
     <div class="tab-content" id="api-key-tab" style="display: none;">
