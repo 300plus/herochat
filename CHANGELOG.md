@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.21] - 2025-03-19
+### Changed
+- Updated plugin version constant implementation
+- Improved version consistency across plugin files
+
 ## [1.0.20] - 2025-03-19
 ### Changed
 - Added iframe border-radius for improved visual appearance
