@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.16] - 2025-03-19
+### Fixed
+- Fixed incorrect version display in settings screen
+
 ## [1.0.15] - 2025-03-19
 ### Fixed
 - Fixed toggle state persistence in settings page
