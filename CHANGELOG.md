@@ -1,3 +1,13 @@
+## [1.0.43] - 2025-03-19
+### Changed
+- Made chatbot ID field optional
+- Improved save button validation logic
+- Fixed version synchronization across files
+
+## [1.0.42] - 2025-03-19
+### Changed
+- Made chatbot ID field mandatory
+- Added form validation to prevent saving without chatbot ID
 
 ## [1.0.28] - 2025-03-19
 ### Changed
