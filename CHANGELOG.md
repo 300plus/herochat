@@ -1,4 +1,8 @@
 
+## [1.0.38] - 2025-03-19
+### Changed
+- Version number incremented for release
+
 ## [1.0.30] - 2025-03-19
 ### Fixed
 - Fixed iframe display issues in settings tabs
