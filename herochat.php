@@ -201,15 +201,30 @@ function herochat_enqueue_script() {
     if (!get_option('herochat_enabled')) {
         return;
     }
-    ?>
-    <script>
-        window.chatpilotConfig = {
-            chatbotId: "<?php echo esc_js(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>",
-            domain: "https://app.herochat.de"
+
+    $included_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_include_pages', ''))));
+    $current_path = $_SERVER['REQUEST_URI'];
+
+    // If no included pages specified, do not show chatbot
+    if (empty($included_pages)) {
+        return;
+    }
+
+    // Check if current path matches any included pattern
+    foreach ($included_pages as $include) {
+        if (fnmatch($include, $current_path) || fnmatch($include . '/*', $current_path)) {
+            ?>
+            <script>
+                window.chatpilotConfig = {
+                    chatbotId: "<?php echo esc_js(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>",
+                    domain: "https://app.herochat.de"
+                }
+            </script>
+            <script src="https://app.herochat.de/embed.min.js" charset="utf-8" defer></script>
+            <?php
+            return;
         }
-    </script>
-    <script src="https://app.herochat.de/embed.min.js" charset="utf-8" defer></script>
-    <?php
+    }
 }
 add_action('wp_head', 'herochat_enqueue_script');
 
