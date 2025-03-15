@@ -48,6 +48,7 @@ function herochat_register_settings() {
     register_setting('herochat_settings_group', 'herochat_id');
     register_setting('herochat_settings_group', 'herochat_include_pages');
     register_setting('herochat_settings_group', 'herochat_exclude_pages');
+    register_setting('herochat_api_settings_group', 'herochat_api_key');
 }
 add_action('admin_init', 'herochat_register_settings');
 
@@ -112,7 +113,13 @@ function herochat_settings_page() {
         <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
             Enhance your website with <a href="https://www.herochat.de" target="_blank">HeroChat</a>, the ultimate AI chatbot solution for customer support, lead generation, and sales conversion. Seamlessly integrate an intelligent chatbot that engages visitors, answers questions, and guides users toward your products or services—all in real time.
         </p>
-        <div class="herochat-container">
+        
+        <h2 class="nav-tab-wrapper">
+            <a href="#chatbot" class="nav-tab nav-tab-active" data-tab="chatbot">Chatbot</a>
+            <a href="#api-key" class="nav-tab" data-tab="api-key">API Key</a>
+        </h2>
+
+        <div class="herochat-container tab-content" id="chatbot-tab" style="display: block;">
             <div class="herochat-settings">
         <form method="post" action="options.php">
             <?php settings_fields('herochat_settings_group'); ?>
@@ -151,8 +158,60 @@ function herochat_settings_page() {
             </table>
             <?php submit_button(); ?>
         </form>
+        </div>
+        <div class="herochat-preview">
+            <div id="iframe-container" style="display: <?php echo get_option('herochat_enabled') ? 'block' : 'none'; ?>">
+                <script>
+                    window.chatpilotIframeConfig = {
+                        chatbotId: "<?php echo esc_js(trim(get_option('herochat_id')) ?: '61be3e7b6818446c8486b538147dce8e'); ?>",
+                        domain: "https://app.herochat.de"
+                    }
+                </script>
+                <script src="https://app.herochat.de/embed.iframe.js" charset="utf-8"></script>
+                <iframe
+                    allow="microphone"
+                    src="https://app.herochat.de/chatbot-iframe/61be3e7b6818446c8486b538147dce8e"
+                    id="chatbot-iframe"
+                    style="border: 1px solid #CCC; border-radius: 10px;"
+                    width="460px"
+                    height="600px"
+                    frameborder="0"
+                ></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content" id="api-key-tab" style="display: none;">
+        <form method="post" action="options.php" id="api-key-form">
+            <?php settings_fields('herochat_api_settings_group'); ?>
+            <table class="form-table">
+                <tr>
+                    <th scope="row">API Key</th>
+                    <td>
+                        <input type="password" name="herochat_api_key" id="herochat_api_key" value="<?php echo esc_attr(get_option('herochat_api_key')); ?>" class="regular-text" />
+                        <p class="description">Enter your HeroChat API key here.</p>
+                    </td>
+                </tr>
+            </table>
+            <?php submit_button('Save API Key'); ?>
+        </form>
+    </div>
         <script>
             jQuery(document).ready(function($) {
+                // Tab switching functionality
+                $('.nav-tab').on('click', function(e) {
+                    e.preventDefault();
+                    var tabId = $(this).data('tab');
+                    
+                    // Update active tab
+                    $('.nav-tab').removeClass('nav-tab-active');
+                    $(this).addClass('nav-tab-active');
+                    
+                    // Show selected tab content
+                    $('.tab-content').hide();
+                    $('#' + tabId + '-tab').show();
+                });
+
                 $('input[name="herochat_enabled"]').on('change', function() {
                     if ($(this).is(':checked')) {
                         $('#iframe-container').fadeIn();
