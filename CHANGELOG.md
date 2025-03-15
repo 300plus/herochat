@@ -1,3 +1,9 @@
+
+## [1.0.25] - 2025-03-19
+### Changed
+- Set /* as default value for included pages when empty
+
+
 # Changelog
 
 ## [1.0.24] - 2025-03-19

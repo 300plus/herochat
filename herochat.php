@@ -206,9 +206,9 @@ function herochat_enqueue_script() {
     $excluded_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_exclude_pages', ''))));
     $current_path = $_SERVER['REQUEST_URI'];
 
-    // If no included pages specified, do not show chatbot
+    // If no included pages specified, use /* as default
     if (empty($included_pages)) {
-        return;
+        $included_pages = array('/*');
     }
 
     // Check if current path matches any excluded pattern
@@ -245,9 +245,9 @@ function herochat_display_chatbot() {
     $included_pages = array_filter(array_map('trim', explode("\n", get_option('herochat_include_pages', ''))));
     $current_path = $_SERVER['REQUEST_URI'];
 
-    // If no included pages specified, do not show chatbot
+    // If no included pages specified, use /* as default
     if (empty($included_pages)) {
-        return;
+        $included_pages = array('/*');
     }
 
     // Check if current path matches any included pattern
@@ -286,3 +286,4 @@ function herochat_plugin_links($links, $file) {
     return $links;
 }
 add_filter('plugin_row_meta', 'herochat_plugin_links', 10, 2);
+?>
