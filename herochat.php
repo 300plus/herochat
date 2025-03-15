@@ -52,6 +52,7 @@ add_action('admin_menu', 'herochat_add_menu');
 function herochat_register_settings() {
     register_setting('herochat_settings_group', 'herochat_enabled');
     register_setting('herochat_settings_group', 'herochat_id');
+    register_setting('herochat_settings_group', 'herochat_welcome_message');
     register_setting('herochat_settings_group', 'herochat_include_pages');
     register_setting('herochat_settings_group', 'herochat_exclude_pages');
     register_setting('herochat_api_settings_group', 'herochat_api_key');
@@ -122,6 +123,7 @@ function herochat_settings_page() {
 
         <h2 class="nav-tab-wrapper">
             <a href="#chatbot" class="nav-tab nav-tab-active" data-tab="chatbot">Chatbot</a>
+            <a href="#settings" class="nav-tab" data-tab="settings">Settings</a>
             <a href="#api-key" class="nav-tab" data-tab="api-key">API Key</a>
         </h2>
 
@@ -185,6 +187,22 @@ function herochat_settings_page() {
                 ></iframe>
             </div>
         </div>
+    </div>
+
+    <div class="tab-content" id="settings-tab" style="display: none;">
+        <form method="post" action="options.php">
+            <?php settings_fields('herochat_settings_group'); ?>
+            <table class="form-table">
+                <tr>
+                    <th scope="row">Welcome Message</th>
+                    <td>
+                        <input type="text" name="herochat_welcome_message" id="herochat_welcome_message" value="<?php echo esc_attr(get_option('herochat_welcome_message')); ?>" class="regular-text" />
+                        <p class="description">Enter your chatbot welcome message here.</p>
+                    </td>
+                </tr>
+            </table>
+            <?php submit_button('Save Settings'); ?>
+        </form>
     </div>
 
     <div class="tab-content" id="api-key-tab" style="display: none;">
