@@ -2,6 +2,7 @@
 ## [1.0.25] - 2025-03-19
 ### Changed
 - Set /* as default value for included pages when empty
+- Added default wildcard pattern when no included pages are specified
 
 
 # Changelog
