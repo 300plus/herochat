@@ -1,3 +1,7 @@
+## [1.0.49] - 2025-03-19
+### Changed
+- Hide settings tab when no API key is provided
+
 ## [1.0.48] - 2025-03-19
 ### Changed
 - Allow saving form with empty chatbot ID
