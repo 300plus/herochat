@@ -1,4 +1,9 @@
 
+## [1.0.26] - 2025-03-19
+### Changed
+- Always use default bot ID (61be3e7b6818446c8486b538147dce8e) unless custom ID is provided
+- Improved user experience with consistent default chatbot behavior
+
 ## [1.0.25] - 2025-03-19
 ### Changed
 - Set /* as default value for included pages when empty
