@@ -12,6 +12,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
+define('HEROCHAT_VERSION', '1.0.19');
+
 // Include Composer autoloader for Plugin Update Checker
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require __DIR__ . '/vendor/autoload.php';
@@ -105,8 +107,7 @@ function herochat_settings_page() {
         }
     </style>
     <div class="wrap">
-        <?php $plugin_version = '1.0.18'; ?>
-        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Version <?php echo $plugin_version; ?></div>
+        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">Version <?php echo HEROCHAT_VERSION; ?></div>
         <h1>HeroChat</h1>
         <p style="font-size: 14px; color: #666; margin-bottom: 20px;">
             Enhance your website with <a href="https://www.herochat.de" target="_blank">HeroChat</a>, the ultimate AI chatbot solution for customer support, lead generation, and sales conversion. Seamlessly integrate an intelligent chatbot that engages visitors, answers questions, and guides users toward your products or services—all in real time.
